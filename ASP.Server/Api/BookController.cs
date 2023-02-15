@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ASP.Server.Database;
+using Namotion.Reflection;
 
 namespace ASP.Server.Api
 {
@@ -56,11 +57,47 @@ namespace ASP.Server.Api
 
 
         // Je vous montre comment faire la 1er, a vous de la compléter et de faire les autres !
-        public ActionResult<List<Book>> GetBooks()
+        public async Task<ActionResult<List<BookDTO>>> GetBooks(int ?limit , int ?offset, int ?genre)
         {
-            throw new NotImplementedException("You have to do it your self");
+
+            IQueryable<Book> req = libraryDbContext.Books.Include(b => b.Genres);
+            if (genre != null)
+            {
+                
+            Genre reqInterm = await libraryDbContext.Genre.FirstOrDefaultAsync(g => g.Id == genre);
+                req = req.Where(b => b.Genres.Contains(reqInterm));
+            }
+            if (offset != null)
+            {
+                req = req.Skip((int)offset);
+            }
+
+            if (limit!=null)
+            {
+                req = req.Take((int)limit);
+            }
+            
+            return await req.Select(x => new BookDTO(x)).ToListAsync();
+           
         }
 
+        public async Task<ActionResult<Book> >GetBook( int id )
+        {
+            var bookItem = await libraryDbContext.Books.Include(g => g.Genres)
+                .FirstOrDefaultAsync( b =>b.Id == id);
+          
+            if (bookItem == null)
+                return NotFound();
+                
+            return bookItem;
+        }
+
+        public async Task<ActionResult<List<Genre>>> GetGenres()
+        {
+            return await libraryDbContext.Genre
+            .Select(x => x)
+            .ToListAsync();
+        }
     }
 }
 
