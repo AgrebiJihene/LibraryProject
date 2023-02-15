@@ -21,7 +21,7 @@ namespace ASP.Server.Controllers
 
         [Required]
         [Display(Name = "Prix")]
-        public double Price { get; set; }
+        public double? Price { get; set; } = null;
         // Liste des genres séléctionné par l'utilisateur
         public List<int> Genres { get; set; } = new();
 
@@ -79,7 +79,12 @@ namespace ASP.Server.Controllers
                     newGenres.Add(libraryDbContext.Genre.Find(id));
                 }
 
-                libraryDbContext.Add(new Book() { Title = book.Title, Content = book.Content, Price = book.Price, Genres = newGenres });
+                if (book.Price < 0)
+                {
+                    return RedirectToAction(nameof(Create));
+                }
+
+                libraryDbContext.Add(new Book() { Title = book.Title, Content = book.Content, Price = (double)book.Price, Genres = newGenres });
                 libraryDbContext.SaveChanges();
 
                 return RedirectToAction(nameof(List));
