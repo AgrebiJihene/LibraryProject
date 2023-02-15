@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ASP.Server.Database;
 using Namotion.Reflection;
+using System.Net;
 
 namespace ASP.Server.Api
 {
@@ -57,14 +58,14 @@ namespace ASP.Server.Api
 
 
         // Je vous montre comment faire la 1er, a vous de la compléter et de faire les autres !
-        public async Task<ActionResult<List<BookDTO>>> GetBooks(int ?limit , int ?offset, int ?genre)
+        public ActionResult<List<BookDTO>> GetBooks(int ?limit , int ?offset, int ?genre)
         {
 
             IQueryable<Book> req = libraryDbContext.Books.Include(b => b.Genres);
             if (genre != null)
             {
                 
-            Genre reqInterm = await libraryDbContext.Genre.FirstOrDefaultAsync(g => g.Id == genre);
+                Genre reqInterm =  libraryDbContext.Genre.FirstOrDefault(g => g.Id == genre);
                 req = req.Where(b => b.Genres.Contains(reqInterm));
             }
             if (offset != null)
@@ -77,18 +78,24 @@ namespace ASP.Server.Api
                 req = req.Take((int)limit);
             }
             
-            return await req.Select(x => new BookDTO(x)).ToListAsync();
+            return  req.Select(x => new BookDTO(x)).ToList();
            
         }
 
-        public async Task<ActionResult<Book> >GetBook( int id )
+        public  ActionResult<Book> GetBook(int? id)
         {
-            var bookItem = await libraryDbContext.Books.Include(g => g.Genres)
-                .FirstOrDefaultAsync( b =>b.Id == id);
-          
+            if (id == null)
+            {
+                return BadRequest();
+            }
+            var bookItem =  libraryDbContext.Books.Include(g => g.Genres)
+                .FirstOrDefault(b => b.Id == id);
+
             if (bookItem == null)
-                return NotFound();
-                
+            {     
+               return NotFound();
+            }
+
             return bookItem;
         }
 
