@@ -19,5 +19,12 @@ namespace ASP.Server.Controllers
         }
 
         // A vous de faire comme BookController.List mais pour les genres !
+
+        public ActionResult<IEnumerable<Genre>> List()
+        {
+            // récupérer les genres dans la base de donées pour qu'elle puisse être affiché
+            List<Genre> ListGenres = libraryDbContext.Genre.Include(g => g.Books).ToList();
+            return View(ListGenres);
+        }
     }
 }
