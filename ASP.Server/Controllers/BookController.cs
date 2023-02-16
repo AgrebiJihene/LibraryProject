@@ -90,7 +90,6 @@ namespace ASP.Server.Controllers
                 return RedirectToAction(nameof(List));
             }
 
-            // Il faut interoger la base pour récupérer tous les genres, pour que l'utilisateur puisse les slécétionné
             return View(new CreateBookModel() { AllGenres = genres });
         }
         public ActionResult Delete(int id)
@@ -103,16 +102,10 @@ namespace ASP.Server.Controllers
 
         public ActionResult ViewEditPage(int id)
         {
-            /* 
-             Book book = libraryDbContext.Books.Include(b => b.Genres).Where(book => book.Id == id).Single();
-             EditBookModel bookForm = new EditBookModel() {Id=book.Id, Title=book.Title, Content=book.Content, Price=book.Price};
-             TempData["bookForm"] = bookForm;
-            */
-            return RedirectToAction(nameof(Edit), new { id });
-
+            return RedirectToAction(nameof(GetBook), new { id });
         }
 
-        public ActionResult<EditBookModel> Edit(int id)
+        public ActionResult<EditBookModel> GetBook(int id)
         {
 
             List<Genre> genres = libraryDbContext.Genre.ToList();
@@ -125,18 +118,17 @@ namespace ASP.Server.Controllers
                 selectedGenres.Add(genre.Id);
             }
 
-            return View(new EditBookModel() { Id = book.Id, Title = book.Title, Content = book.Content, Price = book.Price, Genres = selectedGenres, AllGenres = genres });
+            return View("Edit", new EditBookModel() { Id = book.Id, Title = book.Title, Content = book.Content, Price = book.Price, Genres = selectedGenres, AllGenres = genres });
 
         }
 
         public ActionResult EditBook(EditBookModel bookForm)
         {
-            // Il faut intéroger la base pour récupérer l'ensemble des objets genre qui correspond aux id dans CreateBookModel.Genres
             Book book = libraryDbContext.Books.Include(b => b.Genres).Where(book => book.Id == bookForm.Id).Single();
-            double newPrice;
+
             if (bookForm.Title == null || bookForm.Content == null || bookForm.Price == null || bookForm.Price < 0)
             {
-                return RedirectToAction(nameof(Edit), new { bookForm.Id });
+                return RedirectToAction(nameof(GetBook), new { bookForm.Id });
             }
 
             book.Title = bookForm.Title;
@@ -155,11 +147,10 @@ namespace ASP.Server.Controllers
             if (nb > 0)
             {
                 return RedirectToAction(nameof(List));
-
             }
             else
             {
-                return RedirectToAction(nameof(Edit), new { bookForm.Id });
+                return RedirectToAction(nameof(GetBook), new { bookForm.Id });
             }
         }
     }
