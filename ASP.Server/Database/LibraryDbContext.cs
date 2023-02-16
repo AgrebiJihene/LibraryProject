@@ -11,6 +11,7 @@ namespace ASP.Server.Database
     {
         public LibraryDbContext(DbContextOptions<LibraryDbContext> options) : base(options)
         {
+           
         }
 
         public DbSet<Book> Books { get; set; }
