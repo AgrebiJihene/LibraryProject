@@ -20,12 +20,13 @@
     }
 </style>
 
-<!-- Voici une facon de faire, mais ce n'est pas la seul, a vous de jouer ! -->
+<h1>Add a new genre</h1>
 <form asp-controller="Genre" asp-action="Create">
-    <div class="input-group">
+    <div class="form-group">
         <label asp-for="Name"></label>
-        <input asp-for="Name" required />
+        <input class="form-control" id="Name" asp-for="Name" />
     </div>
-
-    <input type="submit" value="Add" style="width: 100%; margin-top: 50px" />
+    <div class="d-flex justify-content-center">
+        <input class="btn btn-primary" type="submit" value="Add" style="width: 10%; margin-top: 50px; flex-basis: auto" />
+    </div>
 </form>
