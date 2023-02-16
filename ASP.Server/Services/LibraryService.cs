@@ -16,7 +16,5 @@ namespace ASP.Server.Service
                 return instance;
             }
         }
-
-        // Ajouter ici toutes vos fonctions qui peuvent être accéder a différent endroit de votre programme
     }
 }
