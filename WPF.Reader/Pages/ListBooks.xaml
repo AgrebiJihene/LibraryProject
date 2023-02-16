@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WPF.Reader.Pages"
       xmlns:vm="clr-namespace:WPF.Reader.ViewModel"
+      xmlns:behaviours="http://schemas.microsoft.com/xaml/behaviors"
       xmlns:model="clr-namespace:WPF.Reader.Model"
       d:DataContext="{d:DesignInstance Type=vm:ListBook, d:IsDesignTimeCreatable=True}"
       mc:Ignorable="d" 
@@ -24,6 +25,23 @@
             Command="{Binding DataContext.ItemSelectedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}}" 
             CommandParameter="{Binding .}"
         -->
+        <ListBox SelectionMode="Single" ItemsSource="{Binding Books}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Book: " ></TextBlock>
+                        <TextBlock Text="{Binding Title}" ></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+            <behaviours:Interaction.Triggers>
+                <behaviours:EventTrigger EventName="SelectionChanged">
+                    <behaviours:InvokeCommandAction Command="{Binding ItemSelectedCommand}" PassEventArgsToCommand="True"/>
+                </behaviours:EventTrigger>
+            </behaviours:Interaction.Triggers>
+        </ListBox>
+
     </StackPanel>
 </Page>
 

@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using WPF.Reader.Model;
 using WPF.Reader.Service;
@@ -18,7 +20,13 @@ namespace WPF.Reader.ViewModel
 
         public ListBook()
         {
-            ItemSelectedCommand = new RelayCommand(book => { /* the livre devrais etre dans la variable book */ });
+            ItemSelectedCommand = new RelayCommand(e => {
+                /* the livre devrais etre dans la variable book */
+                Book book = ((SelectionChangedEventArgs)e).AddedItems[0] as Book;
+                //MessageBox.Show(book.Title);
+                
+                Ioc.Default.GetRequiredService<INavigationService>().Navigate<DetailsBook>(book);
+            });
         }
     }
 }
