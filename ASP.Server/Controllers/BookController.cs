@@ -102,10 +102,10 @@ namespace ASP.Server.Controllers
 
         public ActionResult ViewEditPage(int id)
         {
-            return RedirectToAction(nameof(GetBook), new { id });
+            return RedirectToAction(nameof(GetBookToEdit), new { id });
         }
 
-        public ActionResult<EditBookModel> GetBook(int id)
+        public ActionResult<EditBookModel> GetBookToEdit(int id)
         {
 
             List<Genre> genres = libraryDbContext.Genre.ToList();
@@ -128,7 +128,7 @@ namespace ASP.Server.Controllers
 
             if (bookForm.Title == null || bookForm.Content == null || bookForm.Price == null || bookForm.Price < 0)
             {
-                return RedirectToAction(nameof(GetBook), new { bookForm.Id });
+                return RedirectToAction(nameof(GetBookToEdit), new { bookForm.Id });
             }
 
             book.Title = bookForm.Title;
@@ -150,7 +150,7 @@ namespace ASP.Server.Controllers
             }
             else
             {
-                return RedirectToAction(nameof(GetBook), new { bookForm.Id });
+                return RedirectToAction(nameof(GetBookToEdit), new { bookForm.Id });
             }
         }
     }

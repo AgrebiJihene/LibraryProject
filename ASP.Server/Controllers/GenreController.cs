@@ -38,7 +38,7 @@ namespace ASP.Server.Controllers
             // Le IsValid est True uniquement si tous les champs de CreateBookModel marqués Required sont remplis
             if (ModelState.IsValid)
             {
-                libraryDbContext.Add(new Genre() { Name = genre.Name});
+                libraryDbContext.Add(new Genre() { Name = genre.Name });
                 libraryDbContext.SaveChanges();
 
                 return RedirectToAction(nameof(List));

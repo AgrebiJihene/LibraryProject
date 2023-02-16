@@ -14,8 +14,6 @@ namespace ASP.Server.Model
         public string Title { get; set; }
         public string Content { get; set; }
         public double Price { get; set; }
-        public List<Genre> Genres { get; set;}
-
-
+        public List<Genre> Genres { get; set; }
     }
 }

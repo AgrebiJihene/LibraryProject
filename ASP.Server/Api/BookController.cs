@@ -58,14 +58,14 @@ namespace ASP.Server.Api
 
 
         // Je vous montre comment faire la 1er, a vous de la compléter et de faire les autres !
-        public ActionResult<List<BookDTO>> GetBooks(int ?limit , int ?offset, int ?genre)
+        public ActionResult<List<BookDTO>> GetBooks(int? limit, int? offset, int? genre)
         {
 
             IQueryable<Book> req = libraryDbContext.Books.Include(b => b.Genres);
             if (genre != null)
             {
-                
-                Genre reqInterm =  libraryDbContext.Genre.FirstOrDefault(g => g.Id == genre);
+
+                Genre reqInterm = libraryDbContext.Genre.FirstOrDefault(g => g.Id == genre);
                 req = req.Where(b => b.Genres.Contains(reqInterm));
             }
             if (offset != null)
@@ -73,27 +73,27 @@ namespace ASP.Server.Api
                 req = req.Skip((int)offset);
             }
 
-            if (limit!=null)
+            if (limit != null)
             {
                 req = req.Take((int)limit);
             }
-            
-            return  req.Select(x => new BookDTO(x)).ToList();
-           
+
+            return req.Select(x => new BookDTO(x)).ToList();
+
         }
 
-        public  ActionResult<Book> GetBook(int? id)
+        public ActionResult<Book> GetBook(int? id)
         {
             if (id == null)
             {
                 return BadRequest();
             }
-            var bookItem =  libraryDbContext.Books.Include(g => g.Genres)
+            var bookItem = libraryDbContext.Books.Include(g => g.Genres)
                 .FirstOrDefault(b => b.Id == id);
 
             if (bookItem == null)
-            {     
-               return NotFound();
+            {
+                return NotFound();
             }
 
             return bookItem;
