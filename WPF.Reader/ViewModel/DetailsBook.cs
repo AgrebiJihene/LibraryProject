@@ -11,9 +11,9 @@ namespace WPF.Reader.ViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public ICommand ReadCommand { get; init; } 
-        public Book CurrentBook { get; init; }
+        public BookDTO CurrentBook { get; init; }
 
-        public DetailsBook(Book book)
+        public DetailsBook(BookDTO book)
         {
             CurrentBook = book;
 
@@ -28,6 +28,6 @@ namespace WPF.Reader.ViewModel
     /* Cette classe sert juste a afficher des donnée de test dans le designer */
     public class InDesignDetailsBook : DetailsBook
     {
-        public InDesignDetailsBook() : base(new Book() /*{ Title = "Test Book" }*/) { }
+        public InDesignDetailsBook() : base(new BookDTO() /*{ Title = "Test Book" }*/) { }
     }
 }

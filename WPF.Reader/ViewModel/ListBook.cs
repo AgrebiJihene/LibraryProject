@@ -16,13 +16,13 @@ namespace WPF.Reader.ViewModel
         public ICommand ItemSelectedCommand { get; set; }
 
         // n'oublier pas faire de faire le binding dans ListBook.xaml !!!!
-        public ObservableCollection<Book> Books => Ioc.Default.GetRequiredService<LibraryService>().Books;
+        public ObservableCollection<BookDTO> Books => Ioc.Default.GetRequiredService<LibraryService>().Books;
 
         public ListBook()
         {
             ItemSelectedCommand = new RelayCommand(e => {
                 /* the livre devrais etre dans la variable book */
-                Book book = ((SelectionChangedEventArgs)e).AddedItems[0] as Book;
+                BookDTO book = ((SelectionChangedEventArgs)e).AddedItems[0] as BookDTO;
                 //MessageBox.Show(book.Title);
                 
                 Ioc.Default.GetRequiredService<INavigationService>().Navigate<DetailsBook>(book);
