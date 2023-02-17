@@ -12,17 +12,23 @@
     <Page.Resources>
         <vm:Navigator x:Key="navigator" />
     </Page.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="80" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="80" />
-        </Grid.RowDefinitions>
-        <!-- On aimerais bien avoir le tire du livre en entête -->
 
-        <!-- Ainsi que le contenu du livre ! -->
-        
-        <Button Grid.Row="2" Command="{Binding Path=GoBack, Source={StaticResource ResourceKey=navigator}}" CommandParameter="LIST" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="200" Content="Retourner au details" Margin="0,0,0,27"/>
-    </Grid>
+    <DockPanel>
+
+        <StackPanel DockPanel.Dock="Bottom">
+            <Button  Command="{Binding Path=GoBack, Source={StaticResource ResourceKey=navigator}}" CommandParameter="LIST" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="200" Content="Retourner au details" Margin="0,0,0,27"/>
+        </StackPanel>
+
+        <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Center"  Orientation="Horizontal">
+            <TextBlock Text="Title: " FontWeight="Bold" />
+            <TextBlock Text="{Binding CurrentBook.Title}" />
+        </StackPanel>
+
+
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <TextBlock TextWrapping="Wrap"  Margin="0,0,0,20" Text="{Binding CurrentBook.Content}"/>
+        </ScrollViewer>
+    </DockPanel>
+
 </Page>
 

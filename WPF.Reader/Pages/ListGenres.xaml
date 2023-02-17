@@ -1,0 +1,39 @@
+﻿<Page x:Class="WPF.Reader.Pages.ListGenres"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WPF.Reader.Pages"
+      mc:Ignorable="d" 
+      xmlns:vm="clr-namespace:WPF.Reader.ViewModel"
+      d:DesignHeight="450" d:DesignWidth="800"
+      xmlns:behaviours="http://schemas.microsoft.com/xaml/behaviors"
+      d:DataContext="{d:DesignInstance Type=vm:ListGenres, d:IsDesignTimeCreatable=True}"
+
+      Title="ListGenres">
+
+    <StackPanel>
+        <Label DockPanel.Dock="Top" Content="List Genres" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="30px"/>
+
+        <ListBox SelectionMode="Single" ItemsSource="{Binding Genres}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Book: " ></TextBlock>
+                        <TextBlock Text="{Binding Name}" ></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            
+            <behaviours:Interaction.Triggers>
+                <behaviours:EventTrigger EventName="SelectionChanged">
+                    <behaviours:InvokeCommandAction Command="{Binding ItemSelectedCommand}" PassEventArgsToCommand="True"/>
+                </behaviours:EventTrigger>
+            </behaviours:Interaction.Triggers>
+        </ListBox>
+
+    </StackPanel>
+
+
+
+</Page>

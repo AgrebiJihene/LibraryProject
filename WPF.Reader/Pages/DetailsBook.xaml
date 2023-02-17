@@ -10,13 +10,32 @@
       d:DataContext="{d:DesignInstance Type=vm:InDesignDetailsBook, d:IsDesignTimeCreatable=True}"
       Title="DetailsBook">
 
-    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <!-- il faut afficher les information du livre: Nom, Auteur, Prix, Genres-->
-        <!-- Mais pas le contenu ! -->
-        <!-- N'oublier pas le bouton pour aller lire le livre. La commande ReadCommand est faite pour ca ! -->
-    </Grid>
+    <DockPanel>
+
+        <StackPanel DockPanel.Dock="Bottom">
+            <Button Command="{Binding ReadCommand}" Width="50" Content="Content"/>
+        </StackPanel>
+
+        <StackPanel HorizontalAlignment="Center" >
+            <TextBlock Text="Title:" FontWeight="Bold" />
+            <TextBlock Text="{Binding CurrentBook.Title}" />
+
+            <TextBlock Text="Price:" FontWeight="Bold"  />
+            <TextBlock Text="{Binding CurrentBook.Price}" />
+
+            <TextBlock Text="Genres:" FontWeight="Bold"/>
+            <ItemsControl ItemsSource="{Binding CurrentBook.Genres}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding  Name }" ></TextBlock>
+
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </DockPanel>
+
+    
+
+
 </Page>

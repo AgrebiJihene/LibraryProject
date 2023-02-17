@@ -1,23 +1,52 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading;
+using System.Windows;
+using WPF.Reader.Api;
 using WPF.Reader.Model;
 
 namespace WPF.Reader.Service
 {
     public class LibraryService
     {
-        // A remplacer avec vos propre données !!!!!!!!!!!!!!
-        // Pensé qu'il ne faut mieux ne pas réaffecter la variable Books, mais juste lui ajouter et / ou enlever des éléments
-        // Donc pas de LibraryService.Instance.Books = ...
-        // mais plutot LibraryService.Instance.Books.Add(...)
-        // ou LibraryService.Instance.Books.Clear()
-        public ObservableCollection<Book> Books { get; set; } = new ObservableCollection<Book>() {
-            new Book(),
-            new Book(),
-            new Book()
-        };
 
-        // C'est aussi ici que vous ajouterez les requête réseau pour récupérer les livres depuis le web service que vous avez fait
-        // Vous pourrez alors ajouter les livres obtenu a la variable Books !
-        // Faite bien attention a ce que votre requête réseau ne bloque pas l'interface 
+        public ObservableCollection<BookDTO> Books { get; set; } = new ObservableCollection<BookDTO>();
+        public ObservableCollection<Genre> Genres { get; set; } = new ObservableCollection<Genre>();
+
+
+        public LibraryService()
+        {
+        }
+
+        public async void UpdateBooks(int offset,Genre genre = null)
+        { 
+            var books = await new BookApi().BookGetBooksAsync(genre:genre?.Id, limit:1, offset:offset);
+            //Thread.Sleep(10000);
+            Application.Current.Dispatcher.Invoke(
+                () =>
+                {
+                    Books.Clear();
+                    foreach (var book in books)
+                    {
+                        Books.Add(book);
+                    }
+                }
+                );
+        }
+
+        public async void UpdateGenres()
+        {
+            var genres = await new BookApi().BookGetGenresAsync();
+            Application.Current.Dispatcher.Invoke(
+                () =>
+                {
+                    Genres.Clear();
+                    foreach (var genre in genres)
+                    {
+                        Genres.Add(genre);
+                    }
+                }
+                );
+        }
     }
 }
