@@ -16,7 +16,7 @@ namespace ASP.Server.Controllers
 
         [Required]
         [Display(Name = "Author")]
-        public Author Author { get; set; }
+        public string Author { get; set; }
 
         [Required]
         [Display(Name = "Contenu")]
@@ -39,7 +39,7 @@ namespace ASP.Server.Controllers
         public string Title { get; set; }
 
         [Display(Name = "Author")]
-        public Author Author { get; set; }
+        public string Author { get; set; }
 
         [Display(Name = "Contenu")]
         public string Content { get; set; }
@@ -73,6 +73,12 @@ namespace ASP.Server.Controllers
 
             if (ModelState.IsValid)
             {
+                Author newAuthor = libraryDbContext.Author.Where(n => n.Name == book.Author).SingleOrDefault();
+
+                if (newAuthor == null) {
+                    newAuthor = new Author() { Name = book.Author };
+                }
+
                 List<Genre> newGenres = new List<Genre>();
 
                 foreach (int id in book.Genres)
@@ -85,7 +91,7 @@ namespace ASP.Server.Controllers
                     return RedirectToAction(nameof(Create));
                 }
 
-                libraryDbContext.Add(new Book() { Title = book.Title, Author = book.Author, Content = book.Content, Price = (double)book.Price, Genres = newGenres });
+                libraryDbContext.Add(new Book() { Title = book.Title, Author = newAuthor, Content = book.Content, Price = (double)book.Price, Genres = newGenres });
                 libraryDbContext.SaveChanges();
 
                 return RedirectToAction(nameof(List));
@@ -108,7 +114,7 @@ namespace ASP.Server.Controllers
 
         public ActionResult<EditBookModel> GetBookToEdit(int id)
         {
-            Book book = libraryDbContext.Books.Include(b => b.Genres).Where(book => book.Id == id).Single();
+            Book book = libraryDbContext.Books.Include(a => a.Author).Include(b => b.Genres).Where(book => book.Id == id).Single();
             List<int> selectedGenres = new List<int>();
             List<Genre> genres = libraryDbContext.Genre.ToList();
 
@@ -117,7 +123,7 @@ namespace ASP.Server.Controllers
                 selectedGenres.Add(genre.Id);
             }
 
-            return View("Edit", new EditBookModel() { Id = book.Id, Title = book.Title, Author = book.Author, Content = book.Content, Price = book.Price, Genres = selectedGenres, AllGenres = genres });
+            return View("Edit", new EditBookModel() { Id = book.Id, Title = book.Title, Author = book.Author.Name, Content = book.Content, Price = book.Price, Genres = selectedGenres, AllGenres = genres });
         }
 
         public ActionResult EditBook(EditBookModel bookForm)
@@ -130,7 +136,15 @@ namespace ASP.Server.Controllers
                 return RedirectToAction(nameof(GetBookToEdit), new { bookForm.Id });
             }
 
+            Author newAuthor = libraryDbContext.Author.Where(n => n.Name == bookForm.Author).SingleOrDefault();
+
+            if (newAuthor == null)
+            {
+                newAuthor = new Author() { Name = bookForm.Author };
+            }
+
             book.Title = bookForm.Title;
+            book.Author = newAuthor;
             book.Content = bookForm.Content;
             book.Price = (double)bookForm.Price;
 
