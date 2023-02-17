@@ -32,6 +32,8 @@ namespace WPF.Reader.ViewModel
             task.Start();
             ItemSelectedCommand = new RelayCommand(e =>
             {
+                if (((SelectionChangedEventArgs)e).AddedItems.Count == 0)
+                    return;
                 Genre genre = ((SelectionChangedEventArgs)e).AddedItems[0] as Genre;
                 Ioc.Default.GetRequiredService<INavigationService>().Navigate<ListBook>(genre);
             });

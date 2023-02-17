@@ -32,6 +32,8 @@ namespace WPF.Reader.ViewModel
            );
             task.Start();
             ItemSelectedCommand = new RelayCommand(e => {
+                if (((SelectionChangedEventArgs)e).AddedItems.Count == 0)
+                    return;
                 /* the livre devrais etre dans la variable book */
                 BookDTO book = ((SelectionChangedEventArgs)e).AddedItems[0] as BookDTO;
                 
