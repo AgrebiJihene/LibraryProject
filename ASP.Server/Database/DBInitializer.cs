@@ -29,10 +29,11 @@ namespace ASP.Server.Database
             bookDbContext.SaveChanges();
 
             bookDbContext.Books.AddRange(
-                new Book() { Title = "book1", Author = a1, Content = "content1", Price = 10.6, Genres = new() { Romance, Thriller } },
-                new Book() { Title = "book2", Author = a2, Content = "content2", Price = 28.6, Genres = new() { SF, Thriller } },
-                new Book() { Title = "book3", Author = a3, Content = "content3", Price = 74.6, Genres = new() { Classic, Thriller } },
-                new Book() { Title = "book4", Author = a4, Content = "content4", Price = 18.7, Genres = new() { Romance, Classic } }
+                new Book() { Title = "book1", Author = a1, Content = "Content1", Price = 10.6, Genres = new() { Romance, Thriller } },
+                new Book() { Title = "book1Bis", Author = a1, Content = "Content1Bis", Price = 13.7, Genres = new() { SF, Thriller } },
+                new Book() { Title = "book2", Author = a2, Content = "Content2", Price = 28.6, Genres = new() { SF, Thriller } },
+                new Book() { Title = "book3", Author = a3, Content = "Content3", Price = 74.6, Genres = new() { Classic, Thriller } },
+                new Book() { Title = "book4", Author = a4, Content = "Content4", Price = 18.7, Genres = new() { Romance, Classic } }
             );
             bookDbContext.SaveChanges();
         }
