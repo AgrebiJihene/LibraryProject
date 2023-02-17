@@ -7,6 +7,7 @@
       mc:Ignorable="d" 
       xmlns:vm="clr-namespace:WPF.Reader.ViewModel"
       d:DesignHeight="450" d:DesignWidth="800"
+      xmlns:behaviours="http://schemas.microsoft.com/xaml/behaviors"
       d:DataContext="{d:DesignInstance Type=vm:ListGenres, d:IsDesignTimeCreatable=True}"
 
       Title="ListGenres">
@@ -23,7 +24,12 @@
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
-
+            
+            <behaviours:Interaction.Triggers>
+                <behaviours:EventTrigger EventName="SelectionChanged">
+                    <behaviours:InvokeCommandAction Command="{Binding ItemSelectedCommand}" PassEventArgsToCommand="True"/>
+                </behaviours:EventTrigger>
+            </behaviours:Interaction.Triggers>
         </ListBox>
 
     </StackPanel>

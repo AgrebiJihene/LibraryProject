@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using WPF.Reader.Model;
 using WPF.Reader.Service;
 
 namespace WPF.Reader.ViewModel

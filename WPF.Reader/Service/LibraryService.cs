@@ -16,13 +16,12 @@ namespace WPF.Reader.Service
 
         public LibraryService()
         {
-            UpdateBooks();
-            UpdateGenres();
         }
 
-        public async void UpdateBooks()
-        {
-            var books = await new BookApi().BookGetBooksAsync();
+        public async void UpdateBooks(Genre genre = null)
+        { 
+
+            var books = await new BookApi().BookGetBooksAsync(genre:genre?.Id);
             //Thread.Sleep(10000);
             Application.Current.Dispatcher.Invoke(
                 () =>

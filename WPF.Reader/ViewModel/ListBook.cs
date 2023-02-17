@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -18,15 +19,25 @@ namespace WPF.Reader.ViewModel
         // n'oublier pas faire de faire le binding dans ListBook.xaml !!!!
         public ObservableCollection<BookDTO> Books => Ioc.Default.GetRequiredService<LibraryService>().Books;
 
-        public ListBook()
+        public ListBook() : this(null)
         {
+        }
+        public ListBook(Genre genre=null)
+        {
+            var task = new Task(() =>
+            {
+                Ioc.Default.GetRequiredService<LibraryService>().UpdateBooks(genre);
+            }
+
+           );
+            task.Start();
             ItemSelectedCommand = new RelayCommand(e => {
                 /* the livre devrais etre dans la variable book */
                 BookDTO book = ((SelectionChangedEventArgs)e).AddedItems[0] as BookDTO;
-                //MessageBox.Show(book.Title);
                 
                 Ioc.Default.GetRequiredService<INavigationService>().Navigate<DetailsBook>(book);
             });
         }
     }
+
 }
