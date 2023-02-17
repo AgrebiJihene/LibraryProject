@@ -42,6 +42,13 @@
             </behaviours:Interaction.Triggers>
         </ListBox>
 
+        <StackPanel DockPanel.Dock="Bottom">
+            <Button Command="{Binding IncreaseValueCommand}" Width="50" Content="Next"/>
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Bottom">
+            <Button Command="{Binding DecreaseValueCommand}" Width="50" Content="Previous"/>
+        </StackPanel>
+
     </StackPanel>
 </Page>
 
