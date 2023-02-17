@@ -27,7 +27,7 @@ namespace WPF.Reader.ViewModel
                     entry = service.Frame.RemoveBackEntry();
                 }
             }
-            service.Navigate<ListBook>();
+            service.Navigate<Acceuil>();
         });
     }
 }

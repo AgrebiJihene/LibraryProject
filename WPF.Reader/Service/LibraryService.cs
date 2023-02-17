@@ -9,18 +9,15 @@ namespace WPF.Reader.Service
 {
     public class LibraryService
     {
-        public ObservableCollection<Genre> Genres { get; set; }
 
-        // A remplacer avec vos propre données !!!!!!!!!!!!!! ContentPresenter MessageBox
-        // Pensé qu'il ne faut mieux ne pas réaffecter la variable Books, mais juste lui ajouter et / ou enlever des éléments
-        // Donc pas de LibraryService.Instance.Books = ...
-        // mais plutot LibraryService.Instance.Books.Add(...)
-        // ou LibraryService.Instance.Books.Clear()
         public ObservableCollection<BookDTO> Books { get; set; } = new ObservableCollection<BookDTO>();
+        public ObservableCollection<Genre> Genres { get; set; } = new ObservableCollection<Genre>();
+
 
         public LibraryService()
         {
             UpdateBooks();
+            UpdateGenres();
         }
 
         public async void UpdateBooks()
@@ -37,7 +34,21 @@ namespace WPF.Reader.Service
                     }
                 }
                 );
-           
+        }
+
+        public async void UpdateGenres()
+        {
+            var genres = await new BookApi().BookGetGenresAsync();
+            Application.Current.Dispatcher.Invoke(
+                () =>
+                {
+                    Genres.Clear();
+                    foreach (var genre in genres)
+                    {
+                        Genres.Add(genre);
+                    }
+                }
+                );
         }
     }
 }
