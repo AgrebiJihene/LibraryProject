@@ -26,9 +26,12 @@ namespace WPF.Reader.Service
                 () =>
                 {
                     Books.Clear();
-                    foreach (var book in books)
+                    if (books != null)
                     {
-                        Books.Add(book);
+                        foreach (var book in books)
+                        {
+                            Books.Add(book);
+                        }
                     }
                 }
                 );
@@ -41,9 +44,11 @@ namespace WPF.Reader.Service
                 () =>
                 {
                     Genres.Clear();
+                    if (genres != null) { 
                     foreach (var genre in genres)
                     {
                         Genres.Add(genre);
+                    }
                     }
                 }
                 );

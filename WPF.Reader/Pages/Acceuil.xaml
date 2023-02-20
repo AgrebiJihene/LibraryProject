@@ -11,13 +11,9 @@
       Title="Acceuil">
 
     <Grid>
-        <StackPanel DockPanel.Dock="Bottom">
-            <Button  Command="{Binding PageBooksSelectedCommand}" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="200" Content="List Books" Margin="0,0,0,27"/>
+        <StackPanel VerticalAlignment="Center">
+            <Button  Command="{Binding PageBooksSelectedCommand}" Height="50" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="200" Content="List Books" Margin="0,0,0,27" FontSize="18px"/>
+            <Button  Command="{Binding PageGenresSelectedCommand}" Height="50" VerticalAlignment="Top" HorizontalAlignment="Center" Width="200" Content="List Genres" Margin="0,0,0,27" FontSize="18px"/>
         </StackPanel>
-        <StackPanel DockPanel.Dock="Top">
-            <Button  Command="{Binding PageGenresSelectedCommand}" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Width="200" Content="List Genres" Margin="0,0,0,27"/>
-        </StackPanel>
-
-
     </Grid>
 </Page>

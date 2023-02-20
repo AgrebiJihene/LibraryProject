@@ -1,0 +1,44 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <LinearGradientBrush x:Key="GrayBlueGardientBrush"  
+                             StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="CornflowerBlue" Offset="0"/>
+        <GradientStop Color="AliceBlue" Offset="0.5"/>
+    </LinearGradientBrush>
+
+    <Style TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="{StaticResource GrayBlueGardientBrush}"/>
+    </Style>
+    <Style x:Key="WindowStyle" TargetType="Window" >
+        <Setter Property="FontFamily" Value="Georgia" />
+        <Setter Property="FontSize" Value="15"></Setter>
+    </Style>
+
+    <Style x:Key="basicTitle" TargetType="{x:Type Label}">
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="Foreground" Value="DarkBlue"/>
+        <Setter Property="Margin" Value="0,20,0,20"/>
+    </Style>
+        <Style TargetType="{x:Type Label}">
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="Foreground" Value="DarkBlue"/>
+    </Style>
+    <Style x:Key="{x:Type ListBoxItem}" TargetType="ListBoxItem">
+        <Setter Property="FontSize" Value="15"></Setter>
+        <Setter Property="Height" Value="30"></Setter>
+    </Style>
+    <Style TargetType="ListBox">
+        <Setter Property="Margin" Value="0,0,0,20" ></Setter>
+        <Setter Property="Background" Value="AliceBlue"></Setter>
+    </Style>
+    <Style x:Key="contentBook" TargetType="StackPanel">
+        <Setter Property="TextBlock.FontSize" Value="16"></Setter>
+        <Setter Property="TextBlock.Margin" Value="0,30,0,0"></Setter>
+    </Style>
+
+    <Style x:Key="readContent" TargetType="ScrollViewer">
+        <Setter Property="TextBlock.FontSize" Value="16"></Setter>
+        <Setter Property="TextBlock.Margin" Value="0,30,0,0"></Setter>
+    </Style>
+</ResourceDictionary>

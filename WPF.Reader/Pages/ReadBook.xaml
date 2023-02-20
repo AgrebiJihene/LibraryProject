@@ -13,19 +13,21 @@
         <vm:Navigator x:Key="navigator" />
     </Page.Resources>
 
-    <DockPanel>
+    <DockPanel Margin="50,0,50,50">
 
-        <StackPanel DockPanel.Dock="Bottom">
-            <Button  Command="{Binding Path=GoBack, Source={StaticResource ResourceKey=navigator}}" CommandParameter="LIST" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="200" Content="Retourner au details" Margin="0,0,0,27"/>
+        <Label Content="Read the book" Style="{StaticResource basicTitle}" DockPanel.Dock="Top" HorizontalAlignment="Center"/>
+
+        <StackPanel DockPanel.Dock="Top">
+            <Button  Command="{Binding Path=GoBack, Source={StaticResource ResourceKey=navigator}}" CommandParameter="LIST" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="200" Content="Go back to details" Margin="0,0,0,27"/>
         </StackPanel>
 
-        <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Center"  Orientation="Horizontal">
+        <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Center"  Orientation="Horizontal" Style="{StaticResource contentBook}">
             <TextBlock Text="Title: " FontWeight="Bold" />
             <TextBlock Text="{Binding CurrentBook.Title}" />
         </StackPanel>
 
 
-        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Style="{StaticResource readContent}">
             <TextBlock TextWrapping="Wrap"  Margin="0,0,0,20" Text="{Binding CurrentBook.Content}"/>
         </ScrollViewer>
     </DockPanel>

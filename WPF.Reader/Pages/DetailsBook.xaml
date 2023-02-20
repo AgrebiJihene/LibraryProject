@@ -10,28 +10,35 @@
       d:DataContext="{d:DesignInstance Type=vm:InDesignDetailsBook, d:IsDesignTimeCreatable=True}"
       Title="DetailsBook">
 
-    <DockPanel>
+    <DockPanel Margin="50,0,50,50">
+        <Label Content="Book Details" Style="{StaticResource basicTitle}" DockPanel.Dock="Top" HorizontalAlignment="Center"/>
 
-        <StackPanel DockPanel.Dock="Bottom">
-            <Button Command="{Binding ReadCommand}" Width="50" Content="Content"/>
+
+        <StackPanel DockPanel.Dock="Bottom" Margin="0,0,0,150">
+            <Button Command="{Binding ReadCommand}" Width="100" Height="25" Content="Content"/>
         </StackPanel>
 
-        <StackPanel HorizontalAlignment="Center" >
-            <TextBlock Text="Title:" FontWeight="Bold" />
-            <TextBlock Text="{Binding CurrentBook.Title}" />
+        <StackPanel>
+            <StackPanel Orientation="Horizontal" Style="{StaticResource contentBook}">
+                <TextBlock Text="Title: " FontWeight="Bold" />
+                <TextBlock Text="{Binding CurrentBook.Title}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Style="{StaticResource contentBook}">
+                <TextBlock Text="Price: " FontWeight="Bold"  />
+                <TextBlock Text="{Binding CurrentBook.Price}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Style="{StaticResource contentBook}">
+                <TextBlock Text="Genres: " FontWeight="Bold"/>
+                <ItemsControl ItemsSource="{Binding CurrentBook.Genres}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding  Name }" ></TextBlock>
 
-            <TextBlock Text="Price:" FontWeight="Bold"  />
-            <TextBlock Text="{Binding CurrentBook.Price}" />
-
-            <TextBlock Text="Genres:" FontWeight="Bold"/>
-            <ItemsControl ItemsSource="{Binding CurrentBook.Genres}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding  Name }" ></TextBlock>
-
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+           
         </StackPanel>
     </DockPanel>
 

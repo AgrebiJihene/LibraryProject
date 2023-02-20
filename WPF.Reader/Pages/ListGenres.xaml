@@ -12,14 +12,14 @@
 
       Title="ListGenres">
 
-    <StackPanel>
-        <Label DockPanel.Dock="Top" Content="List Genres" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="30px"/>
+    <StackPanel Margin="50,0,50,50">
+        <Label Content="List Genres" Style="{StaticResource basicTitle}" HorizontalAlignment="Center"/>
 
         <ListBox SelectionMode="Single" ItemsSource="{Binding Genres}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Book: " ></TextBlock>
+                        <TextBlock Text="Genre: " TextDecorations="Underline" ></TextBlock>
                         <TextBlock Text="{Binding Name}" ></TextBlock>
                     </StackPanel>
                 </DataTemplate>
