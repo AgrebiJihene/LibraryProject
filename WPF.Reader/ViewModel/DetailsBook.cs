@@ -12,7 +12,6 @@ namespace WPF.Reader.ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
         public ICommand ReadCommand { get; init; } 
         public BookDTO CurrentBook { get; init; }
-
         public DetailsBook(BookDTO book)
         {
             CurrentBook = book;

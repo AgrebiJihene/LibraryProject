@@ -124,11 +124,29 @@
           "type": "number",
           "format": "double"
         },
+        "author": {
+          "$ref": "#/definitions/Author"
+        },
         "genres": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/Genre"
           }
+        }
+      }
+    },
+    "Author": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "type": "string"
         }
       }
     },
@@ -176,21 +194,6 @@
           "items": {
             "$ref": "#/definitions/Genre"
           }
-        }
-      }
-    },
-    "Author": {
-      "type": "object",
-      "required": [
-        "id"
-      ],
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "name": {
-          "type": "string"
         }
       }
     }
