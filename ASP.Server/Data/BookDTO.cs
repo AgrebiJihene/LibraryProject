@@ -16,7 +16,8 @@ namespace ASP.Server.Model
         public int Id { get => b.Id; }
         public string Title { get => b.Title; }
         public double Price { get => b.Price; }
-        
+        public Author Author { get; set; }
+
         public List<Genre> Genres { get => b.Genres; }
 
     }

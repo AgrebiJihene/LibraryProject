@@ -28,6 +28,10 @@
                 <TextBlock Text="{Binding CurrentBook.Price}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" Style="{StaticResource contentBook}">
+                <TextBlock Text="Author: " FontWeight="Bold" />
+                <TextBlock />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Style="{StaticResource contentBook}">
                 <TextBlock Text="Genres: " FontWeight="Bold"/>
                 <ItemsControl ItemsSource="{Binding CurrentBook.Genres}">
                     <ItemsControl.ItemTemplate>

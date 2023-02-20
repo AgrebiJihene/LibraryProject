@@ -21,7 +21,7 @@ namespace ASP.Server.Api
 
         public ActionResult<List<BookDTO>> GetBooks(int? limit, int? offset, int? genre)
         {
-            IQueryable<Book> req = libraryDbContext.Books.Include(b => b.Genres);
+            IQueryable<Book> req = libraryDbContext.Books.Include(a => a.Author).Include(b => b.Genres);
             if (genre != null)
             {
 
