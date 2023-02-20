@@ -18,7 +18,7 @@
         <Label Content="Read the book" Style="{StaticResource basicTitle}" DockPanel.Dock="Top" HorizontalAlignment="Center"/>
 
         <StackPanel DockPanel.Dock="Top">
-            <Button  Command="{Binding Path=GoBack, Source={StaticResource ResourceKey=navigator}}" CommandParameter="LIST" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="200" Content="Go back to details" Margin="0,0,0,27"/>
+            <Button  Command="{Binding Path=GoBack, Source={StaticResource ResourceKey=navigator}}" CommandParameter="LIST" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="150" Content="Go back to details" Margin="0,0,0,27"/>
         </StackPanel>
 
         <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Center"  Orientation="Horizontal" Style="{StaticResource contentBook}">

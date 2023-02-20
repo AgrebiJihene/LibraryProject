@@ -34,6 +34,7 @@
             <Button Command="{Binding IncreaseValueCommand}" Width="70" Height="30" Content="Next" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
             <Button Command="{Binding DecreaseValueCommand}" Width="70" Height="30" Content="Previous" HorizontalAlignment="Left" DockPanel.Dock="Right"/>
         </DockPanel>
+        <Button Command="{Binding InitilisationList}" Width="70" Height="30" Content="Init List" HorizontalAlignment="Right" Margin="0,20,0,0"/>
 
 
     </StackPanel>

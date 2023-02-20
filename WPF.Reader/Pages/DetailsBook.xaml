@@ -14,7 +14,7 @@
         <Label Content="Book Details" Style="{StaticResource basicTitle}" DockPanel.Dock="Top" HorizontalAlignment="Center"/>
 
 
-        <StackPanel DockPanel.Dock="Bottom" Margin="0,0,0,150">
+        <StackPanel DockPanel.Dock="Bottom" Margin="0,0,0,130">
             <Button Command="{Binding ReadCommand}" Width="100" Height="25" Content="Content"/>
         </StackPanel>
 

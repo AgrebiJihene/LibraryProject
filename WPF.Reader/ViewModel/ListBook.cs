@@ -17,6 +17,8 @@ namespace WPF.Reader.ViewModel
         public ICommand ItemSelectedCommand { get; set; }
         public ICommand IncreaseValueCommand { get; set; }
         public ICommand DecreaseValueCommand { get; set; }
+        public ICommand InitilisationList { get; set; }
+
 
         public int Offset { get; set; } = 0;
 
@@ -68,15 +70,25 @@ namespace WPF.Reader.ViewModel
                 task.Start();
             }, o => true);
 
+            InitilisationList = new RelayCommand(o => {
+                var task = new Task(() =>
+                {
+                    Ioc.Default.GetRequiredService<LibraryService>().UpdateBooks(0, genre);
+                }
+
+                );
+                task.Start();
+            }, o => true);
+
         }
         public void IncreaseValue()
         {
-            Offset += 1;
+            Offset += 5;
         }
 
         public void DecreaseValue()
         {
-            Offset -= 1;
+            Offset -= 5;
         }
     }
 

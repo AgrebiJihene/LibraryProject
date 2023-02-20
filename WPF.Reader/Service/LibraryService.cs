@@ -20,7 +20,7 @@ namespace WPF.Reader.Service
 
         public async void UpdateBooks(int offset,Genre genre = null)
         { 
-            var books = await new BookApi().BookGetBooksAsync(genre:genre?.Id, limit:1, offset:offset);
+            var books = await new BookApi().BookGetBooksAsync(genre:genre?.Id, limit:5, offset:offset);
             //Thread.Sleep(10000);
             Application.Current.Dispatcher.Invoke(
                 () =>
