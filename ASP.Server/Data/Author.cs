@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -6,15 +6,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ASP.Server.Model
 {
-    public class Book
+    public class Author
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int Id { get; set; }
-        public string Title { get; set; }
-        public Author Author { get; set; }
-        public string Content { get; set; }
-        public double Price { get; set; }
-        public List<Genre> Genres { get; set; }
+        public string Name { get; set; }
+        [JsonIgnore]
+        public List<Book> Books { get; set; }
     }
 }

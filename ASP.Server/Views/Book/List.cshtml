@@ -1,34 +1,63 @@
-﻿@using ASP.Server.Model
-@model IEnumerable<Book>
+﻿@using ASP.Server.Controllers
+@model ListBookModel
 @{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="listeBooks">
     <h1>Liste des livres:</h1>
-    <!-- la liste des genres est dans la variable Model qui est typé en ligne 3, elle correspond à la variable xxx dans View(xxx) du controller -->
-    @foreach (var book in Model)
-    {
-        <div class="book">
-            <h2>@book.Title</h2>
-            <p>@book.Content</p>
-            <p>Prix : @book.Price</p>
-            <ul>
-                @foreach (var genre in book.Genres)
-                {
-                    <li>@genre.Name</li>
-                }
-            </ul>
-            <form asp-controller="Book" asp-action="ViewEditPage">
-                <input type="hidden" value="@book.Id" name="id" />
-                <input type="submit" value="Edit" style="width: 100%; margin-top: 50px" />
-            </form>
 
-            <form asp-controller="Book" asp-action="Delete">
-                <input type="hidden" value="@book.Id" name="id" />
-                <input type="submit" value="Delete" style="width: 100%; margin-top: 50px" />
-            </form>
+    <div class="container">
+        <form asp-controller="Book" asp-action="List">
+            <div class="d-flex justify-content-around">
+                <div class="form-group">
+                    <label asp-for="@Model.SelectedAuthors">Authors</label>
+                    <select class="form-control" asp-for="@Model.SelectedAuthors" asp-items="@(new SelectList(Model.Authors, "Id", "Name"))"></select>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="@Model.SelectedGenres">Categories</label>
+                    <select class="form-control" asp-for="@Model.SelectedGenres" asp-items="@(new SelectList(Model.Genres, "Id", "Name"))"></select>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Apply" class="btn btn-primary" style="width: 100%; margin-top: 50px; flex-basis: auto" />
+                </div>
+            </div>
+        </form>
+
+        <div class="row">
+            @foreach (var book in Model.Books)
+            {
+                <div class="col-sm card" style="width: 250px; min-width: 250px; max-width: 250px; margin:2%">
+                    <div class="card-body">
+                        <h5>@book.Title</h5>
+                        <br />
+                        <span class="card-text">Author : @book.Author.Name</span>
+                        <br />
+                        <span class="card-text">Prix : @book.Price eur</span>
+                        <br />
+                        <span>Genres :</span>
+                        <ul>
+                            @foreach (var genre in book.Genres)
+                            {
+                                <li>@genre.Name</li>
+                            }
+                        </ul>
+                        <div class="d-flex flex-row w-100">
+                            <form asp-controller="Book" asp-action="ViewEditPage" class="w-100">
+                                <input type="hidden" value="@book.Id" name="id" />
+                                <input type="submit" value="Edit" class="btn btn-primary" style="width:90%; margin-top: 5%" />
+                            </form>
+
+                            <form asp-controller="Book" asp-action="Delete" class="w-100">
+                                <input type="hidden" value="@book.Id" name="id" />
+                                <input type="submit" value="Delete" class="btn btn-danger" style="width:90%; margin-top: 5%" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
-    }
+    </div>
 </div>
-

@@ -4,39 +4,46 @@
     ViewData["Title"] = "Add a book";
 }
 <style>
-.input-group {
-    margin-top:10px;
-    display:flex;
-    justify-content:space-between;
-    flex-wrap:wrap;
-}
-input, textarea, select {
-    flex-basis:85%;
-}
-label {
-    flex-basis:10%;
-}
+    .input-group {
+        margin-top: 10px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    input, textarea, select {
+        flex-basis: 85%;
+    }
+
+    label {
+        flex-basis: 10%;
+    }
 </style>
 
-<!-- Voici une facon de faire, mais ce n'est pas la seul, a vous de jouer ! -->
+<h1>Add a new book</h1>
 <form asp-controller="Book" asp-action="Create">
-    <div class="input-group">
+    <div class="form-group">
         <label asp-for="Title"></label>
-        <input asp-for="Title" required />
+        <input class="form-control" id="Title" asp-for="Title" />
     </div>
-    <div class="input-group">
+    <div class="form-group">
+        <label asp-for="Author"></label>
+        <input class="form-control" id="Author" asp-for="Author" />
+    </div>
+    <div class="form-group">
         <label asp-for="Content"></label>
-        <input asp-for="Content" required />
+        <input class="form-control" asp-for="Content" />
     </div>
-    <div class="input-group">
+    <div class="form-group">
         <label asp-for="Price"></label>
-        <input asp-for="Price" required type="number" step="0.1"/>
+        <input class="form-control" asp-for="Price" type="number" step="0.1" />
     </div>
-    <div class="input-group">
+    <div class="form-group">
         <label asp-for="Genres"></label>
-        <!--Si la page rend une erreur a cette ligne, c'est que vous n'avez pas envoyé la liste des genres dans le Controller !!! ! -->
-        <select asp-for="Genres" asp-items="@(new SelectList(Model.AllGenres,"Id","Name"))">
+        <select id="Genres" class="form-control" asp-for="Genres" asp-items="@(new SelectList(Model.AllGenres,"Id","Name"))">
         </select>
     </div>
-    <input type="submit" value="Add" style="width: 100%; margin-top: 50px" />
+    <div class="d-flex justify-content-center">
+        <input class="btn btn-primary" type="submit" value="Add" style="width: 10%; margin-top: 50px; flex-basis: auto" />
+    </div>
 </form>
