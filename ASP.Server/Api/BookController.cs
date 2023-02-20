@@ -21,7 +21,8 @@ namespace ASP.Server.Api
 
         public ActionResult<List<BookDTO>> GetBooks(int? limit, int? offset, int? genre)
         {
-            IQueryable<Book> req = libraryDbContext.Books.Include(a => a.Author).Include(b => b.Genres);
+            IQueryable<Book> req = libraryDbContext.Books.Include(b => b.Genres).Include(a => a.Author);
+
             if (genre != null)
             {
 
@@ -37,7 +38,6 @@ namespace ASP.Server.Api
             {
                 req = req.Take((int)limit);
             }
-
             return req.Select(x => new BookDTO(x)).ToList();
         }
 
