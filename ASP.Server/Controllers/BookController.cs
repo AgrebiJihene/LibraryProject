@@ -8,6 +8,29 @@ using System.Linq;
 
 namespace ASP.Server.Controllers
 {
+    public class ListBookModel
+    {
+        [Required]
+        [Display(Name = "Books")]
+        public IEnumerable<Book> Books { get; set; }
+
+        [Required]
+        [Display(Name = "Authors")]
+        public IEnumerable<Author> Authors { get; set; }
+
+        [Required]
+        [Display(Name = "Genres")]
+        public IEnumerable<Genre> Genres { get; set; }
+
+        [Required]
+        [Display(Name = "SelectedAuthors")]
+        public List<int> SelectedAuthors { get; set; }
+
+        [Required]
+        [Display(Name = "SelectedGenres")]
+        public List<int> SelectedGenres { get; set; }
+    }
+
     public class CreateBookModel
     {
         [Required]
@@ -61,10 +84,27 @@ namespace ASP.Server.Controllers
             this.libraryDbContext = libraryDbContext;
         }
 
-        public ActionResult<IEnumerable<Book>> List()
+        public ActionResult<ListBookModel> List(ListBookModel listBookModel)
         {
-            List<Book> ListBooks = libraryDbContext.Books.Include(a => a.Author).Include(b => b.Genres).ToList();
-            return View(ListBooks);
+            IQueryable<Book> req = libraryDbContext.Books.Include(a => a.Author).Include(b => b.Genres);
+
+            if (listBookModel.SelectedAuthors != null && listBookModel.SelectedAuthors.Count > 0)
+            {
+                req = req.Where(b => listBookModel.SelectedAuthors.Contains(b.Author.Id));
+            }
+
+            if (listBookModel.SelectedGenres != null && listBookModel.SelectedGenres.Count > 0)
+            {
+                var listGenres = libraryDbContext.Genre.Where(x => listBookModel.SelectedGenres.Contains(x.Id));
+
+                req = req.Where(b => b.Genres.Intersect(listGenres).Any());
+            }
+
+            List<Book> ListBooks = req.ToList();
+            List<Author> ListAuthors = libraryDbContext.Author.ToList();
+            List<Genre> ListGenres = libraryDbContext.Genre.ToList();
+
+            return View(new ListBookModel() { Books = ListBooks, Authors = ListAuthors, Genres = ListGenres });
         }
 
         public ActionResult<CreateBookModel> Create(CreateBookModel book)
@@ -75,7 +115,8 @@ namespace ASP.Server.Controllers
             {
                 Author newAuthor = libraryDbContext.Author.Where(n => n.Name == book.Author).SingleOrDefault();
 
-                if (newAuthor == null) {
+                if (newAuthor == null)
+                {
                     newAuthor = new Author() { Name = book.Author };
                 }
 
